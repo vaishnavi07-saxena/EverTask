@@ -5,8 +5,7 @@
 
 A modern task management platform designed to help teams collaborate, manage projects, assign tasks, and track progress efficiently.
 
-Live Preview:  
-https://ai.studio/apps/26eb9c60-414f-4538-b443-b727564937b6
+
 
 </div>
 
