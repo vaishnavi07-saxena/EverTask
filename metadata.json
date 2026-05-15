@@ -1,0 +1,6 @@
+{
+  "name": "EverTask",
+  "description": "A production-ready Team Task Manager with role-based access, analytics, and collaborative Kanban boards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
