@@ -2,37 +2,55 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
   
-  --color-primary: #064e3b;
-  --color-primary-dark: #022c22;
-  --color-secondary: #34d399;
-  --color-secondary-light: #ecfdf5;
-  --color-accent: #10b981;
+  --color-primary: #10b981;
+  --color-primary-dark: #059669;
+  --color-primary-light: #34d399;
+  
+  --color-neutral-bg: #EAEFF5;
+  --color-neutral-subtle: #F1F5F9;
+  --color-neutral-card: #FFFFFF;
+  --color-neutral-border: #E2E8F0;
+  
+  --color-sidebar-bg: #1F2937;
+  --color-sidebar-active: #22c55e;
   
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
+
+  --shadow-premium: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-premium-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
 }
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 antialiased font-sans;
+    @apply bg-[var(--color-neutral-bg)] text-slate-800 antialiased font-sans;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  
+  h1, h2, h3, h4 {
+     @apply font-display tracking-tight text-slate-900;
   }
 }
 
-.bento-card {
-  @apply bg-white border border-slate-200 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:shadow-md;
+.premium-card {
+  @apply bg-white border border-slate-200/60 rounded-3xl p-6 shadow-premium transition-all duration-300 hover:shadow-premium-lg hover:-translate-y-0.5;
 }
 
 .btn-primary {
-  @apply bg-emerald-900 hover:bg-emerald-950 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all active:scale-95 disabled:opacity-50 cursor-pointer;
+  @apply bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all active:scale-95 disabled:opacity-50 cursor-pointer shadow-sm;
 }
 
-.btn-accent {
-  @apply bg-emerald-400 hover:bg-emerald-500 text-emerald-950 px-6 py-2.5 rounded-xl font-bold text-sm transition-all active:scale-95 disabled:opacity-50 cursor-pointer;
+.btn-secondary {
+  @apply bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-6 py-2.5 rounded-xl font-bold text-sm transition-all active:scale-95 disabled:opacity-50 cursor-pointer shadow-sm;
+}
+
+.glass-panel {
+  @apply bg-white/70 backdrop-blur-md border border-white/40;
 }
 
 .glass-header {
-  @apply bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200;
+  @apply bg-white/60 backdrop-blur-xl sticky top-0 z-50 border-b border-slate-200/50;
 }

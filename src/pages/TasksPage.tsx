@@ -54,127 +54,140 @@ export const TasksPage = () => {
   const [activeTab, setActiveTab] = React.useState<'LIST' | 'BOARD'>('LIST');
 
   return (
-    <div className="space-y-8 pb-12">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-12 pb-20">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Active Tasks</h1>
-          <p className="text-slate-500 font-medium">Keep track of your team's progress and stay on schedule.</p>
+          <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2 italic">Operation Hub</h1>
+          <p className="text-slate-500 font-medium text-lg">Granular objective tracking and resource distribution dynamics.</p>
         </div>
-        <div className="flex gap-3">
-          <div className="flex bg-slate-200/50 p-1 rounded-xl">
+        <div className="flex items-center gap-5">
+          <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200/50">
              <button 
                onClick={() => setActiveTab('LIST')}
-               className={cn("px-4 py-2 rounded-lg text-xs font-bold transition-all", activeTab === 'LIST' ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700")}
+               className={cn("px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all", activeTab === 'LIST' ? "bg-white text-slate-900 shadow-xl shadow-slate-200/50" : "text-slate-400 hover:text-slate-600")}
              >
                 LIST
              </button>
              <button 
                onClick={() => setActiveTab('BOARD')}
-               className={cn("px-4 py-2 rounded-lg text-xs font-bold transition-all", activeTab === 'BOARD' ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700")}
+               className={cn("px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all", activeTab === 'BOARD' ? "bg-white text-slate-900 shadow-xl shadow-slate-200/50" : "text-slate-400 hover:text-slate-600")}
              >
                 BOARD
              </button>
           </div>
-          <button className="btn-primary flex items-center gap-2">
-            <Plus className="w-4 h-4" /> Create Task
+          <button className="flex items-center gap-3 px-8 py-3.5 bg-emerald-500 text-white rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all active:scale-95">
+            <Plus className="w-5 h-5 shadow-[0_0_10px_rgba(255,255,255,0.5)]" /> Initialize Objective
           </button>
         </div>
       </div>
 
-      {/* Filter Bar */}
-      <div className="flex flex-col md:flex-row gap-4 items-center">
-         <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+      {/* Control Bar */}
+      <div className="grid md:grid-cols-12 gap-5 items-stretch">
+         <div className="md:col-span-8 relative group">
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
             <input 
               type="text" 
-              placeholder="Search tasks by title, category, or assignee..." 
-              className="w-full bg-white border border-slate-200 rounded-2xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none shadow-sm"
+              placeholder="Query task by title, hash, or deployment lead..." 
+              className="w-full bg-white border border-slate-200 rounded-[2rem] py-5 pl-14 pr-6 text-base font-black tracking-tight focus:outline-none focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 transition-all outline-none shadow-sm"
             />
          </div>
-         <div className="flex gap-2 w-full md:w-auto">
-            <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors shadow-sm">
-               <Filter className="w-4 h-4" /> Filter
+         <div className="md:col-span-4 flex gap-4">
+            <button className="flex-1 flex items-center justify-center gap-3 px-6 py-5 bg-white border border-slate-200 rounded-[2rem] text-xs font-black text-slate-600 uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm">
+               <Filter className="w-4 h-4 text-emerald-500" /> Filter
             </button>
-            <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors shadow-sm text-nowrap">
-               Sort: Newest
+            <button className="flex-1 flex items-center justify-center gap-3 px-6 py-5 bg-white border border-slate-200 rounded-[2rem] text-xs font-black text-slate-600 uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm">
+               Sort: Recent
             </button>
          </div>
       </div>
 
       {activeTab === 'LIST' ? (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {mockTasks.map((task, i) => (
             <motion.div 
               key={task.id}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.05 }}
-              className="group bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all cursor-pointer flex items-center gap-6"
+              className="group premium-card p-8 flex items-center gap-8 relative overflow-hidden"
             >
               <div className={cn(
-                "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors",
-                task.status === 'COMPLETED' ? "bg-emerald-50 text-emerald-600" : "bg-slate-50 text-slate-400 group-hover:bg-slate-100"
+                "w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 shadow-sm",
+                task.status === 'COMPLETED' ? "bg-emerald-500 text-white shadow-emerald-500/20" : "bg-slate-100 text-slate-400 group-hover:bg-slate-900 group-hover:text-white"
               )}>
-                {task.status === 'COMPLETED' ? <CheckCircle2 className="w-5 h-5" /> : task.status === 'IN_PROGRESS' ? <Clock className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
+                {task.status === 'COMPLETED' ? <CheckCircle2 className="w-7 h-7" /> : task.status === 'IN_PROGRESS' ? <Clock className="w-7 h-7" /> : <AlertCircle className="w-7 h-7" />}
               </div>
 
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-1">
-                   <h3 className={cn("text-base font-bold tracking-tight truncate", task.status === 'COMPLETED' ? 'text-slate-400' : 'text-slate-900')}>
+                <div className="flex items-center gap-4 mb-2">
+                   <h3 className={cn("text-xl font-black tracking-tight truncate uppercase leading-none", task.status === 'COMPLETED' ? 'text-slate-400' : 'text-slate-900')}>
                       {task.title}
                    </h3>
-                   <span className={cn("px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-tight", priorityColors[task.priority as keyof typeof priorityColors])}>
+                   <span className={cn("px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest", priorityColors[task.priority as keyof typeof priorityColors])}>
                       {task.priority}
                    </span>
                 </div>
-                <div className="flex items-center gap-4 text-xs font-medium text-slate-500">
-                   <span className="flex items-center gap-1"><Tag className="w-3 h-3" /> {task.category}</span>
-                   <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {task.due}</span>
-                   <span className="flex items-center gap-1"><UserIcon className="w-3 h-3" /> {task.assignee}</span>
+                <div className="flex items-center gap-6">
+                   <span className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest"><Tag className="w-3.5 h-3.5 text-emerald-500" /> {task.category}</span>
+                   <span className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest"><Calendar className="w-3.5 h-3.5 text-emerald-500" /> {task.due}</span>
+                   <span className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest"><UserIcon className="w-3.5 h-3.5 text-emerald-500" /> {task.assignee}</span>
                 </div>
               </div>
 
-              <div className="flex -space-x-2 mr-4 hidden sm:flex">
-                 <div className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-black">{task.assignee.charAt(0)}</div>
+              <div className="flex -space-x-3 mr-6 hidden xl:flex">
+                 {Array.from({ length: 3 }).map((_, j) => (
+                    <div key={j} className="w-10 h-10 rounded-2xl border-4 border-white bg-slate-200 group-hover:translate-x-1 transition-transform"></div>
+                 ))}
               </div>
 
-              <button className="p-2 text-slate-300 hover:text-slate-600 hover:bg-slate-50 rounded-lg">
-                <MoreHorizontal className="w-5 h-5" />
+              <button className="p-3 text-slate-300 hover:text-slate-900 bg-transparent hover:bg-slate-100 rounded-2xl transition-all">
+                <MoreHorizontal className="w-6 h-6" />
               </button>
+              
+              <div className="absolute top-0 right-0 w-2 h-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </motion.div>
           ))}
         </div>
       ) : (
-        <div className="grid md:grid-cols-3 gap-6 items-start">
+        <div className="grid md:grid-cols-3 gap-8 items-start">
            {['TODO', 'IN_PROGRESS', 'COMPLETED'].map((status) => (
-             <div key={status} className="bg-slate-100/50 p-4 rounded-[2rem] min-h-[500px]">
-                <div className="flex items-center justify-between px-3 mb-6">
-                   <div className="flex items-center gap-2">
-                      <h4 className="font-black text-slate-900 text-sm uppercase tracking-widest">{status.replace('_', ' ')}</h4>
-                      <span className="w-5 h-5 bg-slate-200 text-slate-600 rounded-full flex items-center justify-center text-[10px] font-bold">
+             <div key={status} className="bg-slate-100/40 p-6 rounded-[3rem] border border-slate-200/50 backdrop-blur-sm min-h-[600px]">
+                <div className="flex items-center justify-between px-4 mb-8">
+                   <div className="flex items-center gap-4">
+                      <h4 className="font-black text-slate-900 text-xs uppercase tracking-[0.25em] italic">{status.replace('_', ' ')}</h4>
+                      <span className="px-3 py-1 bg-white text-slate-900 border border-slate-200 rounded-full text-[10px] font-black shadow-sm">
                         {mockTasks.filter(t => t.status === status).length}
                       </span>
                    </div>
-                   <button className="p-1 text-slate-400 hover:text-slate-600"><Plus className="w-4 h-4" /></button>
+                   <button className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-900 rounded-xl transition-all"><Plus className="w-4 h-4" /></button>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-6">
                    {mockTasks.filter(t => t.status === status).map((task) => (
-                      <div key={task.id} className="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 hover:border-emerald-400 transition-all cursor-grab active:cursor-grabbing">
-                         <div className="flex items-center justify-between mb-4">
-                            <span className={cn("px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-tight", priorityColors[task.priority as keyof typeof priorityColors])}>
+                      <motion.div 
+                        key={task.id} 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="premium-card p-8 group relative overflow-hidden"
+                      >
+                         <div className="flex items-center justify-between mb-6">
+                            <span className={cn("px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest", priorityColors[task.priority as keyof typeof priorityColors])}>
                                {task.priority}
                             </span>
-                            <button className="text-slate-300 hover:text-slate-600"><MoreHorizontal className="w-4 h-4" /></button>
+                            <button className="text-slate-300 hover:text-slate-900 transition-colors"><MoreHorizontal className="w-5 h-5" /></button>
                          </div>
-                         <h5 className="font-bold text-slate-900 mb-4 leading-tight">{task.title}</h5>
-                         <div className="flex items-center justify-between pt-4 border-t border-slate-50">
-                            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                               <Clock className="w-3.5 h-3.5" />
+                         <h5 className="font-black text-slate-900 text-lg mb-6 leading-tight uppercase italic">{task.title}</h5>
+                         <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                               <Clock className="w-4 h-4 text-emerald-500" />
                                {task.due}
                             </div>
-                            <img src={`https://i.pravatar.cc/150?u=${task.assignee}`} className="w-6 h-6 rounded-full grayscale hover:grayscale-0 transition-all border-2 border-white shadow-sm" alt="" />
+                            <div className="w-10 h-10 rounded-2xl border-4 border-white overflow-hidden shadow-premium">
+                               <img src={`https://i.pravatar.cc/150?u=${task.assignee}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="" />
+                            </div>
                          </div>
-                      </div>
+                         <div className="absolute top-0 right-0 w-1.5 h-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      </motion.div>
                    ))}
                 </div>
              </div>
