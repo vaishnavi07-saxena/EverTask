@@ -12,8 +12,25 @@ import {
   Mail,
   Lock,
   Eye,
-  EyeOff
+  EyeOff,
+  User,
+  Briefcase,
+  CheckSquare,
+  TrendingUp,
+  BarChart,
+  Circle
 } from 'lucide-react';
+import { 
+  BarChart as ReBarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  LineChart,
+  Line
+} from 'recharts';
 import { Link, useNavigate } from 'react-router-dom';
 
 const PagePlaceholder = ({ title }: { title: string }) => (
@@ -23,30 +40,13 @@ const PagePlaceholder = ({ title }: { title: string }) => (
   </div>
 );
 
+import { Testimonials } from '../components/sections/Testimonials';
+
 export const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
-      {/* Navbar */}
-      <nav className="glass-header px-8 h-18 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-9 h-9 bg-emerald-900 rounded-xl flex items-center justify-center">
-            <ShieldCheck className="text-white w-6 h-6" />
-          </div>
-          <span className="text-2xl font-bold text-emerald-900 tracking-tight">EverTask</span>
-        </div>
-        <div className="hidden md:flex items-center gap-8">
-          <a href="#features" className="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Features</a>
-          <a href="#pricing" className="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Pricing</a>
-          <a href="#about" className="text-sm font-medium text-slate-600 hover:text-primary transition-colors">About</a>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link to="/login" className="text-sm font-semibold text-slate-700 hover:text-primary transition-colors">Log in</Link>
-          <Link to="/signup" className="btn-primary">Get Started</Link>
-        </div>
-      </nav>
-
+    <div className="bg-slate-50 overflow-x-hidden">
       {/* Hero Section */}
       <section className="pt-24 pb-32 px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -58,20 +58,20 @@ export const LandingPage = () => {
             <span className="px-4 py-1.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full uppercase tracking-widest mb-6 inline-block">
               Scale your team efficiency
             </span>
-            <h1 className="text-6xl md:text-7xl font-bold text-emerald-950 tracking-tight mb-8 leading-[1.1]">
+            <h1 className="text-6xl md:text-8xl font-bold text-emerald-950 tracking-tight mb-8 leading-[1.1]">
               Manage tasks with <br />
               <span className="text-emerald-500">effortless precision.</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-12 leading-relaxed">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
               EverTask helps modern teams ship faster through collaborative Kanban boards, 
               deep analytics, and role-based workflows — all in one powerful Bento-style dashboard.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button onClick={() => navigate('/dashboard')} className="btn-primary flex items-center gap-2 text-lg px-8 py-4">
+              <button onClick={() => navigate('/dashboard')} className="btn-primary flex items-center gap-2 text-lg px-8 py-4 shadow-xl shadow-emerald-900/10">
                 Launch Dashboard <ArrowRight className="w-5 h-5" />
               </button>
-              <button className="px-8 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-all">
-                Book a Demo
+              <button onClick={() => navigate('/pricing')} className="px-8 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-all">
+                View Pricing
               </button>
             </div>
           </motion.div>
@@ -84,21 +84,33 @@ export const LandingPage = () => {
           >
             <div className="absolute inset-0 bg-emerald-500/10 blur-3xl rounded-full -z-10 transform scale-75 animate-pulse"></div>
             <img 
-              src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=2000" 
+              src="https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=2000" 
               alt="Dashboard Preview" 
-              className="rounded-3xl shadow-2xl border border-slate-200 w-full object-cover max-h-[600px]"
+              className="rounded-3xl shadow-2xl border border-slate-200 w-full object-cover max-h-[650px]"
               referrerPolicy="no-referrer"
             />
           </motion.div>
         </div>
       </section>
 
+      {/* Trusted By */}
+      <section className="py-16 bg-white border-y border-slate-100 px-8">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-12">Trusted by 500+ hyper-growth companies</p>
+          <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
+            {['VOLKSWAGEN', 'DROPBOX', 'INTERCOM', 'VERCEL', 'STRIPE'].map(logo => (
+              <span key={logo} className="text-2xl font-black text-slate-900 tracking-tighter italic">{logo}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Features Grid */}
-      <section id="features" className="py-24 bg-white border-y border-slate-200 px-8">
+      <section id="features" className="py-24 bg-slate-50 px-8 overflow-hidden relative">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16 text-center">
-            <h2 className="text-4xl font-bold text-emerald-950 mb-4">Everything you need to ship.</h2>
-            <p className="text-slate-500 max-w-xl mx-auto">Stop juggling tools. EverTask brings your team under one roof with features designed for scale.</p>
+            <h2 className="text-5xl font-bold text-emerald-950 mb-4 tracking-tight">Everything you need to ship.</h2>
+            <p className="text-slate-500 max-w-xl mx-auto text-lg">Stop juggling tools. EverTask brings your team under one roof with features designed for scale.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -113,12 +125,12 @@ export const LandingPage = () => {
               <motion.div 
                 key={i}
                 whileHover={{ y: -5 }}
-                className="p-8 rounded-3xl bg-slate-50 border border-slate-100 group transition-all"
+                className="p-8 rounded-[2.5rem] bg-white border border-slate-100 group transition-all shadow-sm hover:shadow-xl"
               >
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm border border-slate-50 text-emerald-600 mb-6 group-hover:bg-emerald-900 group-hover:text-white transition-all">
+                <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-8 group-hover:bg-emerald-900 group-hover:text-white transition-all shadow-sm">
                   <f.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{f.title}</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">{f.title}</h3>
                 <p className="text-slate-500 leading-relaxed">{f.desc}</p>
               </motion.div>
             ))}
@@ -126,23 +138,27 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-slate-50 px-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 border-t border-slate-200 pt-12">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-emerald-900 rounded-lg flex items-center justify-center">
-              <ShieldCheck className="text-white w-4 h-4" />
-            </div>
-            <span className="text-lg font-bold text-emerald-900 tracking-tight">EverTask</span>
-          </div>
-          <p className="text-slate-500 text-sm">© 2026 EverTask Inc. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="text-slate-400 hover:text-emerald-900 transition-colors">Twitter</a>
-            <a href="#" className="text-slate-400 hover:text-emerald-900 transition-colors">GitHub</a>
-            <a href="#" className="text-slate-400 hover:text-emerald-900 transition-colors">LinkedIn</a>
-          </div>
+      <Testimonials />
+
+      {/* Final CTA */}
+      <section className="py-24 px-8">
+        <div className="max-w-5xl mx-auto bg-emerald-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+           <div className="relative z-10">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">Ready to reclaim your time?</h2>
+              <p className="text-emerald-100/70 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+                Join thousands of teams already scaling their engineering efficiency with EverTask. 
+                Start your 14-day free trial today.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onClick={() => navigate('/signup')} className="btn-accent px-10 py-4 shadow-xl shadow-emerald-400/20">Create My Free Account</button>
+                <button className="px-10 py-4 text-white font-bold hover:bg-white/5 rounded-xl border border-white/20 transition-all">Contact Sales</button>
+              </div>
+           </div>
+           {/* Abstract Shape */}
+           <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-800 rounded-full blur-[120px] opacity-30 -translate-y-1/2 -translate-x-1/2"></div>
+           <div className="absolute bottom-0 right-0 w-80 h-80 bg-emerald-400 rounded-full blur-[100px] opacity-10 translate-y-1/2 translate-x-1/2"></div>
         </div>
-      </footer>
+      </section>
     </div>
   );
 };
@@ -392,145 +408,191 @@ export const SignupPage = () => {
 export const ForgotPasswordPage = () => <PagePlaceholder title="Reset Password" />;
 export const DashboardPage = () => {
   return (
-    <div className="grid grid-cols-12 grid-rows-6 gap-6 h-[calc(100vh-160px)] min-h-[600px]">
-      {/* Hero/Welcome Card */}
-      <div className="col-span-12 lg:col-span-8 row-span-2 bg-emerald-900 rounded-[2rem] p-8 relative overflow-hidden flex flex-col justify-between">
-        <div className="relative z-10">
-          <h2 className="text-3xl font-bold text-white mb-2">Welcome back, Alex!</h2>
-          <p className="text-emerald-100/70 max-w-md">You have 4 tasks to review today and a project meeting in 2 hours. Your team's productivity is up by 12% this week.</p>
+    <div className="space-y-8 pb-12">
+      {/* Welcome Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Organization Overview</h1>
+          <p className="text-slate-500">Welcome back, here's what's happening with your projects today.</p>
         </div>
-        <div className="flex gap-4 relative z-10">
-          <button className="btn-accent">Create Project</button>
-          <button className="px-6 py-2.5 bg-white/10 text-white border border-white/20 font-bold rounded-xl text-sm backdrop-blur-sm hover:bg-white/20 transition-all">View Reports</button>
+        <div className="flex gap-3">
+          <button className="btn-primary flex items-center gap-2">
+            <Zap className="w-4 h-4" /> Quick Build
+          </button>
         </div>
-        {/* Abstract Shape Decor */}
-        <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-800 rounded-full blur-3xl opacity-50"></div>
-        <div className="absolute right-12 top-8 w-24 h-24 bg-emerald-400/20 rounded-full blur-xl"></div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="col-span-6 lg:col-span-4 row-span-1 bento-card flex flex-col justify-between">
-        <div className="flex justify-between items-center text-slate-500">
-          <span className="text-sm font-medium">Total Projects</span>
-          <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      {/* Summary Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { label: 'Active Projects', value: '12', icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: 'Pending Tasks', value: '64', icon: CheckSquare, color: 'text-amber-600', bg: 'bg-amber-50' },
+          { label: 'Completed', value: '192', icon: CheckCircle2, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+          { label: 'Productivity', value: '+12%', icon: TrendingUp, color: 'text-purple-600', bg: 'bg-purple-50' },
+        ].map((stat, i) => (
+          <motion.div 
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="bento-card flex items-center gap-4"
+          >
+            <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0", stat.bg)}>
+              <stat.icon className={cn("w-6 h-6", stat.color)} />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{stat.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Charts and Activity Grid */}
+      <div className="grid grid-cols-12 gap-6">
+        {/* Main Chart */}
+        <div className="col-span-12 lg:col-span-8 bento-card">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="font-bold text-slate-800">Weekly Task Velocity</h3>
+            <div className="flex bg-slate-100 p-1 rounded-lg">
+              <button className="px-3 py-1 bg-white rounded-md text-[10px] font-bold shadow-sm">WEEKLY</button>
+              <button className="px-3 py-1 text-[10px] font-bold text-slate-500">MONTHLY</button>
+            </div>
+          </div>
+          <div className="h-72 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ReBarChart data={[
+                { name: 'Mon', completed: 12, pending: 8 },
+                { name: 'Tue', completed: 19, pending: 12 },
+                { name: 'Wed', completed: 15, pending: 10 },
+                { name: 'Thu', completed: 22, pending: 15 },
+                { name: 'Fri', completed: 30, pending: 5 },
+                { name: 'Sat', completed: 10, pending: 2 },
+                { name: 'Sun', completed: 8, pending: 1 },
+              ]}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94a3b8' }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94a3b8' }} />
+                <Tooltip 
+                   cursor={{ fill: '#f8fafc' }}
+                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                />
+                <Bar dataKey="completed" fill="#10b981" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="pending" fill="#e2e8f0" radius={[4, 4, 0, 0]} />
+              </ReBarChart>
+            </ResponsiveContainer>
           </div>
         </div>
-        <div className="flex items-end gap-2 text-slate-900">
-          <span className="text-3xl font-bold">24</span>
-          <span className="text-emerald-500 text-xs font-bold mb-1">+2 new</span>
-        </div>
-      </div>
 
-      <div className="col-span-6 lg:col-span-4 row-span-1 bento-card flex flex-col justify-between">
-        <div className="flex justify-between items-center text-slate-500">
-          <span className="text-sm font-medium">Active Tasks</span>
-          <div className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg>
-          </div>
-        </div>
-        <div className="flex items-end gap-2 text-slate-900">
-          <span className="text-3xl font-bold">142</span>
-          <span className="text-slate-400 text-xs font-bold mb-1">12 overdue</span>
-        </div>
-      </div>
-
-      {/* Priority Tasks */}
-      <div className="col-span-12 lg:col-span-5 row-span-4 bento-card">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="font-bold text-slate-800">Priority Tasks</h3>
-          <button className="text-emerald-600 text-xs font-bold hover:underline">View All</button>
-        </div>
-        <div className="space-y-4">
-          {[
-            { title: 'Auth System Refactor', project: 'Nexus API', time: '2h left', status: 'IN REVIEW', color: 'bg-red-400' },
-            { title: 'UI Kit Documentation', project: 'Design System', time: 'Tomorrow', status: 'PROGRESS', color: 'bg-amber-400' },
-            { title: 'DB Migration Strategy', project: 'Infrastructure', time: 'Friday', status: 'PENDING', color: 'bg-slate-400' },
-            { title: 'AWS S3 Bucket Fix', project: 'Cloud', time: 'Urgent', status: 'BLOCKED', color: 'bg-red-400' },
-          ].map((task, i) => (
-            <div key={i} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group cursor-pointer hover:bg-white hover:shadow-sm transition-all">
-              <div className="flex gap-4">
-                <div className={cn("w-1 h-10 rounded-full", task.color)}></div>
-                <div>
-                  <p className="text-sm font-bold text-slate-800 group-hover:text-primary transition-colors">{task.title}</p>
-                  <p className="text-[11px] text-slate-500">{task.project} &bull; {task.time}</p>
+        {/* Activity Feed */}
+        <div className="col-span-12 lg:col-span-4 bento-card overflow-hidden">
+          <h3 className="font-bold text-slate-800 mb-6 font-sans">Recent Activity</h3>
+          <div className="space-y-6">
+            {[
+              { user: 'Sarah K.', action: 'completed task', target: 'API Integration', time: '2m ago' },
+              { user: 'Mike R.', action: 'created project', target: 'Summer Launch', time: '15m ago' },
+              { user: 'Elena V.', action: 'added comment', target: 'Design Review', time: '1h ago' },
+              { user: 'System', action: 'backup success', target: 'Server #4', time: '2h ago' },
+              { user: 'Jason D.', action: 'joined team', target: 'Marketing', time: '5h ago' },
+            ].map((activity, i) => (
+              <div key={i} className="flex gap-4 group cursor-pointer">
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
+                  <User className="w-4 h-4 text-slate-400 group-hover:text-emerald-600" />
+                </div>
+                <div className="flex-1 border-b border-slate-50 pb-4 last:border-0 group-hover:translate-x-1 transition-transform">
+                  <p className="text-sm text-slate-600">
+                    <span className="font-bold text-slate-900">{activity.user}</span> {activity.action} {' '}
+                    <span className="font-semibold text-emerald-600">{activity.target}</span>
+                  </p>
+                  <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{activity.time}</p>
                 </div>
               </div>
-              <span className="px-2 py-1 bg-white border border-slate-100 text-slate-600 text-[10px] font-bold rounded-lg uppercase tracking-tight">{task.status}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Productivity Chart Placeholder */}
-      <div className="col-span-12 lg:col-span-4 row-span-2 bento-card flex flex-col">
-        <h3 className="font-bold text-slate-800 mb-4">Productivity Trends</h3>
-        <div className="flex-1 flex items-end justify-between gap-2">
-          {[24, 32, 48, 20, 40, 28, 36].map((h, i) => (
-            <div key={i} className="w-full relative group">
-              <div 
-                className={cn(
-                  "w-full rounded-t-lg transition-all duration-500",
-                  i === 2 ? "bg-emerald-400 h-[80%]" : "bg-emerald-100 h-[40%]"
-                )}
-                style={{ height: `${h * 2}px` }}
-              ></div>
-              {i === 2 && <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-emerald-600">Peak</div>}
-            </div>
-          ))}
+        {/* Projects Table Preview */}
+        <div className="col-span-12 lg:col-span-12 bento-card">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="font-bold text-slate-800">Recent Projects</h3>
+            <Link to="/projects" className="text-emerald-600 text-xs font-bold hover:underline">View All Projects</Link>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-slate-100">
+                  <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Project Name</th>
+                  <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
+                  <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Team</th>
+                  <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Progress</th>
+                  <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Deadline</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { name: 'Aurora Platform', status: 'In Progress', team: 4, progress: 65, date: '12 May', color: 'text-emerald-600 bg-emerald-50' },
+                  { name: 'Nexus Mobile', status: 'Review', team: 2, progress: 90, date: '18 May', color: 'text-blue-600 bg-blue-50' },
+                  { name: 'Legacy Cleanup', status: 'Pending', team: 1, progress: 20, date: '22 May', color: 'text-slate-600 bg-slate-50' },
+                  { name: 'Brand Expansion', status: 'In Progress', team: 5, progress: 45, date: '04 Jun', color: 'text-emerald-600 bg-emerald-50' },
+                ].map((p, i) => (
+                  <tr key={i} className="group hover:bg-slate-50/50 transition-colors">
+                    <td className="py-4">
+                      <p className="text-sm font-bold text-slate-900">{p.name}</p>
+                    </td>
+                    <td className="py-4">
+                      <span className={cn("px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tight", p.color)}>
+                        {p.status}
+                      </span>
+                    </td>
+                    <td className="py-4">
+                      <div className="flex -space-x-2">
+                        {Array.from({ length: p.team }).map((_, j) => (
+                          <div key={j} className="w-6 h-6 rounded-full border-2 border-white bg-slate-200"></div>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="py-4 w-32">
+                      <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${p.progress}%` }}></div>
+                      </div>
+                    </td>
+                    <td className="py-4">
+                      <p className="text-xs font-bold text-slate-500">{p.date}</p>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="flex justify-between mt-4 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-        </div>
-      </div>
 
-      {/* Team Activity */}
-      <div className="col-span-12 lg:col-span-3 row-span-4 bg-emerald-50 border border-emerald-100 rounded-3xl p-6 flex flex-col shadow-inner">
-        <h3 className="font-bold text-emerald-900 mb-4">Team Activity</h3>
-        <div className="space-y-4">
-          {[
-            { name: 'John Doe', action: 'Updated 4 tasks', initial: 'JD' },
-            { name: 'Sarah Meyer', action: 'Completed \'Bug #401\'', initial: 'SM' },
-            { name: 'Mike Kim', action: 'Shared 2 attachments', initial: 'MK' },
-          ].map((member, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-xs shadow-sm text-emerald-900 border border-emerald-100">
-                {member.initial}
+        {/* AI Insight Special Card */}
+        <div className="col-span-12 lg:col-span-12 bento-card bg-emerald-950 text-white border-none relative overflow-hidden">
+           <div className="relative z-10 p-4 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="max-w-xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-emerald-400 rounded-xl flex items-center justify-center">
+                    <Zap className="text-emerald-950 w-6 h-6" />
+                  </div>
+                  <h3 className="text-2xl font-bold tracking-tight text-white">Smart Insights</h3>
+                </div>
+                <p className="text-emerald-100/80 mb-6 text-lg">
+                  Based on your current speed, you are on track to complete <span className="text-emerald-400 font-bold">"Aurora Platform"</span> 
+                  3 days earlier than projected. Consider pulling tasks from the iceberg.
+                </p>
+                <div className="flex gap-4">
+                  <button className="btn-accent px-6">Apply Suggestion</button>
+                  <button className="px-6 py-2 text-white font-bold opacity-60 hover:opacity-100">Dismiss</button>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-bold text-emerald-950">{member.name}</p>
-                <p className="text-[10px] text-emerald-700/80">{member.action}</p>
+              <div className="hidden md:block w-40 h-40 bg-emerald-900 rounded-full relative">
+                 <div className="absolute inset-0 border-4 border-emerald-400/20 rounded-full border-t-emerald-400 animate-spin-slow"></div>
+                 <div className="absolute inset-0 flex items-center justify-center">
+                    <TrendingUp className="w-12 h-12 text-emerald-400" />
+                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-8 space-y-4">
-           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-emerald-100">
-              <p className="text-[10px] font-bold text-emerald-800 mb-2 uppercase tracking-wider">Quick Invite</p>
-              <input type="text" placeholder="Email address" className="w-full text-xs p-2.5 bg-slate-50/50 rounded-xl border border-emerald-100 mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/20" />
-              <button className="w-full py-2 bg-emerald-900 text-white text-xs font-bold rounded-xl hover:bg-emerald-950 shadow-lg shadow-emerald-900/10 active:scale-95 transition-all">Send Invite</button>
            </div>
-        </div>
-      </div>
-
-      {/* Project Milestones */}
-      <div className="col-span-12 lg:col-span-4 row-span-2 bento-card">
-        <h3 className="font-bold text-slate-800 mb-4">Milestones</h3>
-        <div className="space-y-4">
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 shrink-0 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center font-bold">22</div>
-            <div className="border-b border-slate-50 pb-2 w-full">
-              <p className="text-sm font-bold text-slate-800">V1.0 Live Release</p>
-              <p className="text-xs text-slate-500">Production server push</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 shrink-0 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold">25</div>
-            <div className="w-full">
-              <p className="text-sm font-bold text-slate-800">Security Audit</p>
-              <p className="text-xs text-slate-500">External compliance team</p>
-            </div>
-          </div>
+           <div className="absolute -right-16 -top-16 w-64 h-64 bg-emerald-800 rounded-full blur-[100px] opacity-30"></div>
         </div>
       </div>
     </div>

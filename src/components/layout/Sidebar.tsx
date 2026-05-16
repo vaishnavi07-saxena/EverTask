@@ -11,7 +11,9 @@ import {
   User, 
   Settings, 
   ShieldCheck,
-  LogOut
+  LogOut,
+  FileText,
+  CreditCard
 } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { useAuthStore } from '../../store/useAuthStore';
@@ -22,10 +24,12 @@ const navItems = [
   { icon: CheckSquare, label: 'Tasks', path: '/tasks' },
   { icon: Kanban, label: 'Kanban', path: '/kanban' },
   { icon: BarChart3, label: 'Analytics', path: '/analytics' },
+  { icon: FileText, label: 'Reports', path: '/reports' },
   { icon: Users, label: 'Team', path: '/team' },
 ];
 
 const secondaryNavItems = [
+  { icon: CreditCard, label: 'Manage Plan', path: '/pricing' },
   { icon: Bell, label: 'Notifications', path: '/notifications' },
   { icon: User, label: 'Profile', path: '/profile' },
   { icon: Settings, label: 'Settings', path: '/settings' },
