@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ShieldCheck, Menu, X } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import { useAuthStore } from '../../store/useAuthStore';
 import { motion, AnimatePresence } from 'motion/react';
 
 const navLinks = [
@@ -15,6 +16,7 @@ const navLinks = [
 export const PublicNavbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const location = useLocation();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <nav className="glass-header w-full px-6 md:px-12 h-20 flex items-center justify-between transition-all duration-300">
@@ -42,8 +44,14 @@ export const PublicNavbar = () => {
       </div>
 
       <div className="hidden lg:flex items-center gap-4">
-        <Link to="/login" className="text-sm font-bold text-slate-700 hover:text-emerald-700 px-4">Log in</Link>
-        <Link to="/signup" className="btn-primary shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20">Get Started Free</Link>
+        {isAuthenticated ? (
+          <Link to="/dashboard" className="btn-primary shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20">Go to Dashboard</Link>
+        ) : (
+          <>
+            <Link to="/login" className="text-sm font-bold text-slate-700 hover:text-emerald-700 px-4">Log in</Link>
+            <Link to="/signup" className="btn-primary shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20">Get Started Free</Link>
+          </>
+        )}
       </div>
 
       {/* Mobile Toggle */}
@@ -71,8 +79,14 @@ export const PublicNavbar = () => {
               </Link>
             ))}
             <div className="flex flex-col gap-3 mt-4">
-              <Link to="/login" className="text-center py-3 font-bold text-slate-700">Log in</Link>
-              <Link to="/signup" className="btn-primary w-full text-center py-4">Sign Up</Link>
+              {isAuthenticated ? (
+                <Link to="/dashboard" onClick={() => setIsOpen(false)} className="btn-primary w-full text-center py-4">Dashboard</Link>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setIsOpen(false)} className="text-center py-3 font-bold text-slate-700">Log in</Link>
+                  <Link to="/signup" onClick={() => setIsOpen(false)} className="btn-primary w-full text-center py-4">Sign Up</Link>
+                </>
+              )}
             </div>
           </motion.div>
         )}

@@ -1,16 +1,26 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { User } from '../types';
 
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
-  login: (user: User) => void;
+  token: string | null;
+  login: (user: User, token: string) => void;
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  isAuthenticated: false,
-  login: (user) => set({ user, isAuthenticated: true }),
-  logout: () => set({ user: null, isAuthenticated: false }),
-}));
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      isAuthenticated: false,
+      token: null,
+      login: (user, token) => set({ user, isAuthenticated: true, token }),
+      logout: () => set({ user: null, isAuthenticated: false, token: null }),
+    }),
+    {
+      name: 'evertask-auth-storage',
+    }
+  )
+);

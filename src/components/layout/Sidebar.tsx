@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Briefcase, 
@@ -35,19 +35,23 @@ const secondaryNavItems = [
   { icon: Settings, label: 'Settings', path: '/settings' },
 ];
 
-export const Sidebar = () => {
+export const Sidebar = ({ onAction }: { onAction?: () => void }) => {
   const { user, logout } = useAuthStore();
   const isAdmin = user?.role === 'ADMIN';
 
+  const handleClick = () => {
+    if (onAction) onAction();
+  };
+
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-emerald-900 flex flex-col shrink-0">
+    <aside className="h-full w-64 bg-emerald-900 flex flex-col shrink-0">
       <div className="p-6">
-        <div className="flex items-center gap-2 text-white font-bold text-xl">
+        <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl" onClick={handleClick}>
           <div className="w-8 h-8 bg-emerald-400 rounded-lg flex items-center justify-center text-emerald-900">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <span>EverTask</span>
-        </div>
+        </Link>
       </div>
 
       <nav className="flex-1 px-4 space-y-1">
@@ -56,6 +60,7 @@ export const Sidebar = () => {
           <NavLink
             key={item.path}
             to={item.path}
+            onClick={handleClick}
             className={({ isActive }) =>
               cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
@@ -75,6 +80,7 @@ export const Sidebar = () => {
             <div className="text-xs font-semibold text-emerald-500/50 uppercase tracking-wider px-3 mt-6 mb-2">Admin Panel</div>
             <NavLink
               to="/admin"
+              onClick={handleClick}
               className={({ isActive }) =>
                 cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
@@ -96,6 +102,7 @@ export const Sidebar = () => {
           <NavLink
             key={item.path}
             to={item.path}
+            onClick={handleClick}
             className={({ isActive }) =>
               cn(
                 "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-colors",
@@ -110,7 +117,7 @@ export const Sidebar = () => {
           </NavLink>
         ))}
         <button
-          onClick={() => logout()}
+          onClick={() => { logout(); handleClick(); }}
           className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-red-400 hover:bg-red-900/20 transition-colors mt-2"
         >
           <LogOut className="w-5 h-5 opacity-70" />

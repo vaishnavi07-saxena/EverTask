@@ -30,9 +30,6 @@ const PublicLayout = () => (
 const ProtectedRoute = ({ adminOnly = false }: { adminOnly?: boolean }) => {
   const { isAuthenticated, user } = useAuthStore();
   
-  // For development convenience, we're not strict yet. 
-  // In production, uncomment the auth checks below.
-  /*
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
@@ -40,7 +37,6 @@ const ProtectedRoute = ({ adminOnly = false }: { adminOnly?: boolean }) => {
   if (adminOnly && user?.role !== 'ADMIN') {
     return <Navigate to="/dashboard" replace />;
   }
-  */
   
   return (
     <DashboardLayout>
