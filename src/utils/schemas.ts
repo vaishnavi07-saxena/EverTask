@@ -17,5 +17,9 @@ export const signupSchema = z.object({
   path: ["confirmPassword"],
 });
 
-export type LoginInput = z.infer<typeof loginSchema>;
-export type SignupInput = z.infer<typeof signupSchema>;
+export const quickAccessSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  role: z.enum(['ADMIN', 'MEMBER'])
+});
+
+export type QuickAccessInput = z.infer<typeof quickAccessSchema>;

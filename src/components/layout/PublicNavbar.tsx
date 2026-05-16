@@ -47,10 +47,7 @@ export const PublicNavbar = () => {
         {isAuthenticated ? (
           <Link to="/dashboard" className="btn-primary shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20">Go to Dashboard</Link>
         ) : (
-          <>
-            <Link to="/login" className="text-sm font-bold text-slate-700 hover:text-emerald-700 px-4">Log in</Link>
-            <Link to="/signup" className="btn-primary shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20">Get Started Free</Link>
-          </>
+          <Link to="/login" className="btn-primary shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20 px-8">Quick access</Link>
         )}
       </div>
 
@@ -82,10 +79,7 @@ export const PublicNavbar = () => {
               {isAuthenticated ? (
                 <Link to="/dashboard" onClick={() => setIsOpen(false)} className="btn-primary w-full text-center py-4">Dashboard</Link>
               ) : (
-                <>
-                  <Link to="/login" onClick={() => setIsOpen(false)} className="text-center py-3 font-bold text-slate-700">Log in</Link>
-                  <Link to="/signup" onClick={() => setIsOpen(false)} className="btn-primary w-full text-center py-4">Sign Up</Link>
-                </>
+                <Link to="/login" onClick={() => setIsOpen(false)} className="btn-primary w-full text-center py-4">Get Started</Link>
               )}
             </div>
           </motion.div>

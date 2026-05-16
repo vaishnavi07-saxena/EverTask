@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { 
-  LandingPage, LoginPage, SignupPage, ForgotPasswordPage, 
+  LandingPage, LoginPage, 
   DashboardPage, ProjectsPage, ProjectDetailPage, TasksPage, 
   KanbanPage, AnalyticsPage, NotificationsPage, TeamPage, 
   ProfilePage, SettingsPage, AdminPanelPage, NotFoundPage 
@@ -59,8 +59,6 @@ export default function App() {
 
         {/* Auth Routes */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
         {/* Protected Dashboard Routes */}
         <Route element={<ProtectedRoute />}>

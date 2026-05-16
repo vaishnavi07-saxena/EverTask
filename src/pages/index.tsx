@@ -13,8 +13,6 @@ export const PagePlaceholder = ({ title }: { title: string }) => (
 
 // Auth Pages
 export * from './LoginPage';
-export * from './SignupPage';
-export * from './ForgotPasswordPage';
 
 // Public Pages
 export * from './LandingPage';

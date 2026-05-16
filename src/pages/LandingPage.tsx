@@ -37,7 +37,7 @@ export const LandingPage = () => {
               EverTask is the professional project management platform built for modern organizations. Track, manage, and scale with ease.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/signup" className="btn-primary w-full sm:w-auto text-lg px-10 py-5 shadow-2xl shadow-emerald-900/20">
+              <Link to="/login" className="btn-primary w-full sm:w-auto text-lg px-10 py-5 shadow-2xl shadow-emerald-900/20">
                 Start for Free
               </Link>
               <Link to="/pricing" className="btn-secondary w-full sm:w-auto text-lg px-10 py-5">
@@ -106,7 +106,7 @@ export const LandingPage = () => {
               <p className="text-slate-500 font-medium text-lg leading-relaxed mb-8">
                 Every detail in EverTask is crafted to eliminate friction and empower your team to focus on what matters.
               </p>
-              <Link to="/signup" className="flex items-center gap-2 text-emerald-600 font-bold group">
+              <Link to="/login" className="flex items-center gap-2 text-emerald-600 font-bold group">
                 Exploration of features <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
@@ -165,7 +165,7 @@ export const LandingPage = () => {
              <div className="relative z-10">
                <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-8">Ready to transform your <br/> workflows?</h2>
                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Link to="/signup" className="btn-primary-light w-full sm:w-auto text-lg px-10 py-5">
+                  <Link to="/login" className="btn-primary-light w-full sm:w-auto text-lg px-10 py-5">
                     Start Your Trial
                   </Link>
                   <Link to="/contact" className="text-white font-bold px-10 py-5 hover:bg-white/10 rounded-2xl transition-colors">
